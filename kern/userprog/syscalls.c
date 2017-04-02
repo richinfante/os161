@@ -35,6 +35,11 @@ int sys_exit(int code) {
 int sys_printint(int c) {
     kprintf("print_int:  %d\n", c);
 
-    return c % 5 == 0 ? 0 : 1;
+    // return 0 if c is a multiple of 5.
+    if (c % 5 == 0) {
+      return 0;
+    }
+
+    return 1;
 }                           
 
