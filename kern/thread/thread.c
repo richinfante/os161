@@ -462,7 +462,7 @@ mi_switch(threadstate_t nextstate)
  * gets called from exorcise().
  */
 void
-thread_exit(void)
+thread_exit(int code)
 {
 	if (curthread->t_stack != NULL) {
 		/*
@@ -626,5 +626,5 @@ mi_threadstart(void *data1, unsigned long data2,
 	func(data1, data2);
 
 	/* Done. */
-	thread_exit();
+	thread_exit(0);
 }

@@ -39,6 +39,7 @@ int printfile(int, char **);
 int malloctest(int, char **);
 int mallocstress(int, char **);
 int nettest(int, char **);
+int printtest(int, char **);
 
 /* Kernel menu system */
 void menu(char *argstr);

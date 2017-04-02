@@ -157,7 +157,8 @@ syscall.o: ../../arch/mips/mips/syscall.c ../../include/types.h \
   machine/types.h ../../include/kern/types.h machine/ktypes.h \
   ../../include/kern/errno.h ../../include/lib.h machine/setjmp.h \
   machine/pcb.h machine/spl.h machine/trapframe.h \
-  ../../include/kern/callno.h ../../include/syscall.h
+  ../../include/kern/callno.h ../../include/syscall.h \
+  ../../include/thread.h
 threadstart.o: ../../arch/mips/mips/threadstart.S machine/asmdefs.h
 trap.o: ../../arch/mips/mips/trap.c ../../include/types.h machine/types.h \
   ../../include/kern/types.h machine/ktypes.h ../../include/lib.h \
@@ -327,6 +328,10 @@ uio.o: ../../userprog/uio.c ../../include/types.h machine/types.h \
   ../../include/kern/types.h machine/ktypes.h ../../include/lib.h \
   machine/setjmp.h ../../include/uio.h ../../include/thread.h \
   machine/pcb.h ../../include/curthread.h
+syscalls.o: ../../userprog/syscalls.c ../../include/types.h \
+  machine/types.h ../../include/kern/types.h machine/ktypes.h \
+  ../../include/lib.h machine/setjmp.h ../../include/thread.h \
+  machine/pcb.h
 arraytest.o: ../../test/arraytest.c ../../include/types.h machine/types.h \
   ../../include/kern/types.h machine/ktypes.h ../../include/lib.h \
   machine/setjmp.h ../../include/array.h ../../include/test.h

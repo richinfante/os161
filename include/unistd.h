@@ -81,7 +81,7 @@
 #endif
 
 /* Required. */
-__DEAD void _exit(int code);
+//__DEAD void _exit(int code);
 int execv(const char *prog, char *const *args);
 pid_t fork(void);
 int waitpid(pid_t pid, int *returncode, int flags);
@@ -90,6 +90,9 @@ int waitpid(pid_t pid, int *returncode, int flags);
  * arg is the file mode used for creation. Unless you're implementing
  * security and permissions, you can ignore it.
  */
+int _exit(int code);
+int printint(int code);
+int reversestring(const char * string, int length);
 int open(const char *filename, int flags, ...);
 int read(int filehandle, void *buf, size_t size);
 int write(int filehandle, const void *buf, size_t size);

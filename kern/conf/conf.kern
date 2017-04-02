@@ -382,7 +382,7 @@ file      main/menu.c
 file      userprog/loadelf.c
 file      userprog/runprogram.c
 file      userprog/uio.c
-
+file      userprog/syscalls.c
 #
 # Virtual memory system
 # (you will probably want to add stuff here while doing the VM assignment)
@@ -450,6 +450,7 @@ file		test/tt3.c
 file		test/synchtest.c
 file		test/malloctest.c
 file		test/fstest.c
+# file    test/printtest.c
 optfile net	test/nettest.c
 
 # UW options for different assignments
