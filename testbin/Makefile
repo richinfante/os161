@@ -43,8 +43,8 @@ all depend tags clean install:
 	(cd triplehuge && $(MAKE) $@)
 	(cd triplemat && $(MAKE) $@)
 	(cd triplesort && $(MAKE) $@)
-	(cd tests && $(MAKE) $@)
-
+	(cd testprint && $(MAKE) $@)
+	(cd testreverse && $(MAKE) $@)
 # But not:
 #    malloctest     (no malloc/free until you write it)
 #    userthreads    (no support in kernel API in base system)
