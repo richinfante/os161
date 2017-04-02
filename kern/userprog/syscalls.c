@@ -4,29 +4,37 @@
 
 
 int sys_reversestring(const char * string, int length) {
-        int i;
+    int i;
+        
+    // start at the end of the string, walk forward
+    for (i = length - 1; i >= 0; i--) {
+        // print individual character
+        kprintf("%c", string[i]);
+    }
 
-        for (i = length - 1; i >= 0; i--) {
-                kprintf("%c", string[i]);
-        }
-        kprintf("\n");
-
-        return length % 3 == 0
-                ? 0
-                : 1;
+    //print newline
+    kprintf("\n");
+        
+    // if length is multiple of 3, return 0;
+    if (length % 3 == 0) {
+      return 0;
+    }
+        
+    // otherwise, return 1.
+    return 1;
 }
 
 int sys_exit(int code) {
-          kprintf("thread exit: code %d\n", code);
-          thread_exit(code);
-
-          // Shouldn't ever reach here.
-          return 0;
+    kprintf("thread exit: code %d\n", code);
+    thread_exit(code);
+    
+    // Shouldn't ever reach here.
+    return 0;
 }
 
 int sys_printint(int c) {
-        kprintf("print_int:  %d\n", c);
+    kprintf("print_int:  %d\n", c);
 
-        return c % 5 == 0 ? 0 : 1;
+    return c % 5 == 0 ? 0 : 1;
 }                           
 
