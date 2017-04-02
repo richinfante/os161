@@ -1,18 +1,23 @@
 #include <unistd.h>
+#include <stdio.h>
+
+void assert(int condition) {
+  if (!condition) {
+    _exit(1);
+  }
+}
 
 int
 main(int argc, char **argv)
 {
 	
   // Print the int
-  int res = printint(22);
-
-  // Print the response code
-  printint(res);
+  assert(printint(5) == 0);
+  assert(printint(6) == 1);
  
- // const char s = "hello, world";
+  assert(reversestring("hey", 3) == 0);
+  assert(reversestring("hello", 5) == 1);
 
-  reversestring("hey", strlen("hey"));
   // Exit.
 	_exit(0);
   return 0;

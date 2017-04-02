@@ -8,33 +8,6 @@
 #include <syscall.h>
 #include <thread.h>
 #include <lib.h>
-//#include "../../../userprog/syscalls.c"
-//int sys_exit(int code);
-//int sys_printint(int c);
-
-int sys_reversestring(const char * string, int length) {
- int i;
- 
-  for (i = length - 1; i >= 0; i--) {
-    kprintf("%c", string[i]);
-  }
-  kprintf("\n");
-  
-  return 0;
-}
-
-int sys_exit(int code) {
-  kprintf("thread exit: code %d\n", code);
-  thread_exit(code);
-
-  // Shouldn't ever reach here.
-  return 0;
-}
-
-int sys_printint(int c) {
-  kprintf("print_int:  %d\n", c);
-  return c % 5 == 0 ? 0 : 1;
-}
 
 /*
  * System call handler.
@@ -94,6 +67,7 @@ mips_syscall(struct trapframe *tf)
 	 */
 
 	retval = 0;
+  err = 0;
 
 	switch (callno) {
 	    case SYS_reboot:
@@ -109,7 +83,7 @@ mips_syscall(struct trapframe *tf)
     break;
 
       case SYS_reversestring:
-    err = sys_reversestring((char*) tf->tf_a0, tf->tf_a1);
+    retval = sys_reversestring((char*) tf->tf_a0, tf->tf_a1);
     break;
 	    /* Add stuff here */
  
@@ -118,7 +92,6 @@ mips_syscall(struct trapframe *tf)
 		err = ENOSYS;
 		break;
 	}
-
 
 	if (err) {
 		/*
