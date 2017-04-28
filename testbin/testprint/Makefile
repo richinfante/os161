@@ -1,4 +1,4 @@
-# Makefile for ctest
+# Makefile for testprint
 
 SRCS=testprint.c
 PROG=testprint

@@ -91,6 +91,12 @@ void thread_sleep(const void *addr);
 void thread_wakeup(const void *addr);
 
 /*
+ * Wake a single thread sleeping on address
+ * Interrupts must be disabled.
+ */
+void thread_wakeup_single(const void *addr);
+
+/*
  * Return nonzero if there are any threads sleeping on the specified
  * address. Meant only for diagnostic purposes.
  */

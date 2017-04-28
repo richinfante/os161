@@ -2,7 +2,6 @@
 #include <lib.h>
 #include <thread.h>
 
-
 int sys_reversestring(const char * string, int length) {
     int i;
         

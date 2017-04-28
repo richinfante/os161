@@ -573,6 +573,28 @@ thread_wakeup(const void *addr)
 	}
 }
 
+void thread_wakeup_single(const void * addr) {
+  int i, result;
+  
+  // needs to be called with interrupts off
+  assert(curspl>0);
+
+  for (i=0; i<array_getnum(sleepers); i++) {
+    struct thread *t = array_getguy(sleepers, i);
+
+    if (t->t_sleepaddr == addr) {              
+      // Remove from list
+      array_remove(sleepers, i);
+      
+      // must look at the same sleepers[i] again
+      i--;
+
+      result = make_runnable(t);
+      assert(result==0);
+      return;
+    
+  }
+}
 /*
  * Return nonzero if there are any threads who are sleeping on "sleep address"
  * ADDR. This is meant to be used only for diagnostic purposes.
