@@ -592,9 +592,10 @@ void thread_wakeup_single(const void * addr) {
       result = make_runnable(t);
       assert(result==0);
       return;
-    
+    } 
   }
 }
+
 /*
  * Return nonzero if there are any threads who are sleeping on "sleep address"
  * ADDR. This is meant to be used only for diagnostic purposes.
