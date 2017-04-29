@@ -137,9 +137,10 @@ void
 lock_acquire(struct lock *lock)
 {
   assert(lock != NULL);
-  if (lock_do_i_hold(lock)) return;
 
   int spl = splhigh(); // disable interrupts
+
+  if (lock_do_i_hold(lock)) return;
 
   // While the lock is held, sleep.
   while (lock->held) {
@@ -161,10 +162,10 @@ lock_release(struct lock *lock)
 
   int spl = splhigh(); // enter critical reigon
 
-  // Remove held.
+  // release the lock..
   lock->held = 0;
   lock->held_by = NULL;
-  thread_wakeup(lock);
+  thread_wakeup_single(lock);
 
   splx(spl); // exit critical reigon
 }
@@ -173,7 +174,7 @@ int
 lock_do_i_hold(struct lock *lock)
 {
 	assert(lock != NULL);
-  
+
   // is it held by this current thread?
   if (lock->held && lock->held_by == curthread) {
     return 1;
@@ -222,36 +223,38 @@ cv_destroy(struct cv *cv)
 void
 cv_wait(struct cv *cv, struct lock *lock)
 {
+  // Release this thread's lock on the mutex.
 	lock_release(lock);
-  int spl = splhigh();
+
+  int spl = splhigh(); // Enter critical region
+
+  // Sleep on this CV.
   thread_sleep(cv);
-  splx(spl);
-  lock_acquire(lock);
-        
-  // Write this
-//(void)cv;    // suppress warning until code gets written//	(void)lock;  // suppress warning until code gets written
+  
+  splx(spl); // Exit critical reigon
+
+  lock_acquire(lock); // Re-acquire the lock, and continue.
+ 
 }
 
 void
 cv_signal(struct cv *cv, struct lock *lock)
 {
   int spl = splhigh();
-  thread_wakeup_single(cv);
-  splx(spl);
 
-	// Write this
-	//(void)cv;    // suppress warning until code gets written
-	//(void)lock;  // suppress warning until code gets written
+  // Wake up a single thread waiting for this CV.
+  thread_wakeup_single(cv);
+
+  splx(spl);
 }
 
 void
 cv_broadcast(struct cv *cv, struct lock *lock)
 {
   int spl = splhigh();
+  
+  // Wake up all threads waiting on this CV.
   thread_wakeup(cv);
-  splx(spl);
 
-	// Write this
-	//(void)cv;    // suppress warning until code gets written
-	//(void)lock;  // suppress warning until code gets written
+  splx(spl);
 }

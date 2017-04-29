@@ -126,7 +126,7 @@ locktestthread(void *junk, unsigned long num)
 {
 	int i;
 	(void)junk;
-
+  
 	for (i=0; i<NLOCKLOOPS; i++) {
 		lock_acquire(testlock);
 		testval1 = num;
